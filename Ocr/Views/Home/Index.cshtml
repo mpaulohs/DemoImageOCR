@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Tessaract</h1>
+            <img src="~/images/hora1.jpeg" alt="" width="300" />
+            <br />
+            <h1>Result</h1>
+            <span id="progress"></span>
+            <div id="result"></div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/1.0.14/tesseract.min.js" integrity="sha256-vYgmkDKL/+EZ54V9EVYp+42j5jn1dRwKaKchUB5p/1k=" crossorigin="anonymous"></script>    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    let img = new Image();
+    img.src = "./images/hora1.jpeg"
+    img.onload = function()
+    {
+        console.log("loaded", "$$$$$$$$$$$$")
+        Tesseract.recognize(img).progress((progress) => {
+            if (progress.status === "recognizing text") {
+                $('#progress').text(progress.progress*100 + "%")
+            }
+        }).then((result) => {
+            console.log(result, "$$$$");
+            $('#result').text(result.text);
+        })           
+        
+    };
+    $(function () {
+        
+        
+    })
+</script>
+
+}
